@@ -157,8 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundVideo.currentTime = 0;
     backgroundMusic.currentTime = 0;
     backgroundMusic.muted = false;
-    backgroundMusic.play().catch(err => {
+    backgroundMusic.volume = volumeSlider.value;
+    backgroundMusic.play().then(() => {
+      console.log("Music started successfully");
+    }).catch(err => {
       console.error("Failed to play music after start screen click:", err);
+      setTimeout(() => {
+        backgroundMusic.play().catch(e => console.error("Retry failed:", e));
+      }, 100);
     });
     profileBlock.classList.remove('hidden');
     gsap.fromTo(profileBlock,
@@ -691,3 +697,4 @@ document.addEventListener('DOMContentLoaded', () => {
   typeWriterStart();
 
 });
+
