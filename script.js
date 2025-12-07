@@ -415,11 +415,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentAudio) {
           currentAudio.pause();
           currentAudio.currentTime = 0;
+          currentAudio.muted = true;
         }
         currentAudio = audio;
         currentAudio.volume = volumeSlider.value;
         currentAudio.muted = isMuted;
-        currentAudio.play().catch(err => console.error("Failed to play theme music:", err));
+        currentAudio.currentTime = 0;
+        currentAudio.load();
+        currentAudio.play().catch(err => {
+          console.error("Failed to play theme music:", err);
+          setTimeout(() => {
+            currentAudio.play().catch(e => console.error("Theme music retry failed:", e));
+          }, 100);
+        });
 
         document.body.classList.remove('home-theme', 'hacker-theme', 'rain-theme', 'anime-theme', 'car-theme');
         document.body.classList.add(themeClass);
@@ -697,4 +705,5 @@ document.addEventListener('DOMContentLoaded', () => {
   typeWriterStart();
 
 });
+
 
