@@ -1,19 +1,28 @@
 let hasUserInteracted = false;
+let videosPreloaded = false;
 
-function initMedia() {
-  console.log("initMedia called");
-  const backgroundMusic = document.getElementById('background-music');
-  const backgroundVideo = document.getElementById('background');
-  if (!backgroundMusic || !backgroundVideo) {
-    console.error("Media elements not found");
-    return;
-  }
-  backgroundMusic.volume = 0.3;
-  backgroundVideo.muted = true; 
-
+// Preload all videos
+function preloadVideos() {
+  const videos = [
+    'assets/background.mp4',
+  ];
   
-  backgroundVideo.play().catch(err => {
-    console.error("Failed to play background video:", err);
+  let loadedCount = 0;
+  
+  videos.forEach(src => {
+    const video = document.createElement('video');
+    video.preload = 'auto';
+    video.src = src;
+    video.load();
+    
+    video.addEventListener('loadeddata', () => {
+      loadedCount++;
+      console.log(`Preloaded: ${src} (${loadedCount}/${videos.length})`);
+      if (loadedCount === videos.length) {
+        videosPreloaded = true;
+        console.log('All videos preloaded');
+      }
+    });
   });
 }
 
@@ -680,4 +689,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   typeWriterStart();
+
 });
