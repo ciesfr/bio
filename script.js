@@ -187,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundMusic.play().catch(err => {
       console.error("Failed to play music after start screen click:", err);
     });
+    backgroundVideo.addEventListener('playing', function audioRetry() {
+      backgroundMusic.play().catch(e => console.log("Retry failed:", e));
+      backgroundVideo.removeEventListener('playing', audioRetry);
+    }, { once: true });
     profileBlock.classList.remove('hidden');
     gsap.fromTo(profileBlock,
       { opacity: 0, y: -50 },
@@ -224,6 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
     backgroundMusic.play().catch(err => {
       console.error("Failed to play music after start screen touch:", err);
     });
+    backgroundVideo.addEventListener('playing', function audioRetry() {
+      backgroundMusic.play().catch(e => console.log("Retry failed:", e));
+      backgroundVideo.removeEventListener('playing', audioRetry);
+    }, { once: true });
     profileBlock.classList.remove('hidden');
     gsap.fromTo(profileBlock,
       { opacity: 0, y: -50 },
@@ -754,4 +762,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
 
