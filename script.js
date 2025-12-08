@@ -41,6 +41,13 @@ function initMedia() {
   backgroundVideo.play().catch(err => {
     console.error("Failed to play background video:", err);
   });
+
+  backgroundVideo.addEventListener('loadeddata', () => {
+    console.log("Video loaded, attempting to play audio");
+    if (document.body.classList.contains('started')) {
+      backgroundMusic.play().catch(e => console.log("Audio play on loadeddata failed:", e));
+    }
+  });
   
   // Start preloading other videos
   preloadVideos();
@@ -747,3 +754,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
