@@ -28,20 +28,21 @@ function preloadVideos() {
 
 function initMedia() {
   console.log("initMedia called");
+  const backgroundMusic = document.getElementById('background-music');
   const backgroundVideo = document.getElementById('background');
-  if (!backgroundVideo) {
-    console.error("Video element not found");
+  if (!backgroundMusic || !backgroundVideo) {
+    console.error("Media elements not found");
     return;
   }
-  
-  // Start muted to allow autoplay behind the start screen
+  backgroundMusic.volume = 0.3;
   backgroundVideo.muted = true; 
-  backgroundVideo.volume = 0.3; // Store intended volume for later
 
+  
   backgroundVideo.play().catch(err => {
     console.error("Failed to play background video:", err);
   });
   
+  // Start preloading other videos
   preloadVideos();
 }
 
@@ -709,4 +710,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
-
