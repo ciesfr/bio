@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const bioMessages = [
-    "i create corny website like these, and alot of stuff.\nhmu on discord @frnocies and telegram",
+    "i create corny website like these, and alot of stuff.\nhmu on discord @ciesbrb and telegram",
     "\"Hmu if u want\""
   ];
   let bioText = '';
@@ -762,6 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
 
 
 
