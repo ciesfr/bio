@@ -332,33 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentAudio = backgroundMusic;
   let isMuted = false;
-
-  // --- SYNC FIX START ---
-  // Store the previous time to detect looping
-  let lastVideoTime = 0;
-
-  backgroundVideo.addEventListener('timeupdate', () => {
-    const currentVideoTime = backgroundVideo.currentTime;
-
-    // Detect if the video has looped (current time is significantly smaller than last time)
-    if (currentVideoTime < lastVideoTime - 0.5) {
-      console.log('Video looped, resyncing audio...');
-      if (currentAudio) {
-        currentAudio.currentTime = 0;
-        currentAudio.play().catch(e => console.error("Audio play failed", e));
-      }
-    }
-    
-    // Optional: Drift correction
-    // If audio drifts by more than 0.3 seconds, snap it to video time
-    if (currentAudio && Math.abs(currentAudio.currentTime - currentVideoTime) > 0.3) {
-        // Only sync if they are meant to be the same length/content
-        currentAudio.currentTime = currentVideoTime; 
-        // (Uncomment the line above only if your audio and video files are EXACTLY the same duration)
-    }
-
-    lastVideoTime = currentVideoTime;
-  });
   
   // Ensure audio plays/pauses with video
   backgroundVideo.addEventListener('play', () => {
@@ -762,6 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   typeWriterStart();
 });
+
 
 
 
